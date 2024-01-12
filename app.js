@@ -1,13 +1,13 @@
-//let listaDeNumerosSorteados = [];
-//let NumeroLimite ;
+let listaDeNumerosSorteados = [];
+let NumeroLimite = 10;
 let numeroSecreto = gerarNumeroAleatorio();  //identifica a variavel 
-let tentativas = 1 ;
+let tentativas = 1;
 
 
-function exibirTextoNaTela(tag, texto) {     //função para exibir texto na tela TAG= h1, p etc.... TEXTO= o que eu escrevo
-    let campo = document.querySelector(tag);  // seleciona a tag que quero exibir 
-    campo.innerHTML = texto; 
-    //responsiveVoice.speak(texto, 'Brazilian Portuguese Female', {rate:1.2}) ;                
+function exibirTextoNaTela(tag, texto) {
+    let campo = document.querySelector(tag);
+    campo.innerHTML = texto;
+    responsiveVoice.speak(texto, 'Brazilian Portuguese Female', {rate:1.2});
 }
  
 function exibirMensagemInicial() {
@@ -19,9 +19,9 @@ exibirMensagemInicial()
 
 function verificarChute() {  
     let chute = document.querySelector('input').value;
-    //console.log (chute==numeroSecreto); //aparece no console se foi clicado a palavra verificar 
+    
     if (chute == numeroSecreto) {
-       exibirTextoNaTela('h1', 'Acertou!');
+       exibirTextoNaTela('h1', 'Até que enfim acertou burrão!');
        let palavraTentativa = tentativas > 1 ? 'tentativas' : 'tentativa';
        let mensagemTentativas = `Parabéns! você descobriu o número secreto com ${tentativas} ${palavraTentativa}`
        exibirTextoNaTela('p', mensagemTentativas);
@@ -41,17 +41,20 @@ function verificarChute() {
 
 
 
-function gerarNumeroAleatorio() {          //função para gerar o numero aleatorio 
-    let NumeroEscolhido =  parseInt(Math.random() * 10 + 1);    //return usado quando é retornado o numero gerado
-    //let quantidadeDeElementosNaLista = listaDeNumerosSorteados.length;
-   // if (quantidadeDeElementosNaLista == 3) {
+function gerarNumeroAleatorio() {
+    let numeroEscolhido = parseInt(Math.random() * NumeroLimite + 1);
+    let quantidadeDeElementosNaLista = listaDeNumerosSorteados.length;
+
+    if (quantidadeDeElementosNaLista == NumeroLimite) {
         listaDeNumerosSorteados = [];
-   // }
-    // (listaDeNumerosSorteados.includes(numeroSecreto)) {
+    }
+    if (listaDeNumerosSorteados.includes(numeroEscolhido)) {
         return gerarNumeroAleatorio();
-//} else 
-    //listaDeNumerosSorteados.push(NumeroEscolhido);
-    //return NumeroEscolhido; 
+    } else {
+        listaDeNumerosSorteados.push(numeroEscolhido);
+        console.log(listaDeNumerosSorteados)
+        return numeroEscolhido;
+    }
 }
 
 
